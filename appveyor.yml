@@ -8,7 +8,7 @@ environment:
   matrix:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       ARCH: win64-msvc16-mdd
-      HOST_ARCH_ARG: --enable-msvc --enable-debug
+      HOST_ARCH_ARG: --enable-msvc --enable-debug --disable-shared --enable-static
       TESTS: none
       ADD_PATH: 
 
