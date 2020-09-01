@@ -8,7 +8,7 @@ environment:
   matrix:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       ARCH: win64-msvc16-mdd
-      HOST_ARCH_ARG: --enable-msvc --enable-debug --disable-shared --enable-static
+      HOST_ARCH_ARG: --enable-msvc --enable-debug
       TESTS: none
       ADD_PATH: 
 
@@ -21,7 +21,7 @@ install:
 build_script:
   - C:\msys64\usr\bin\bash -lc "cd C:\projects; ln -s %APPVEYOR_PROJECT_SLUG% %APPVEYOR_PROJECT_NAME%; git clone https://github.com/coin-or/coinbrew"
   - C:\msys64\usr\bin\bash -lc "cd C:\projects; ./coinbrew/coinbrew fetch https://github.com/%APPVEYOR_REPO_NAME%@%APPVEYOR_REPO_BRANCH% --no-prompt --no-third-party --skip-update"
-  - C:\msys64\usr\bin\bash -lc "cd C:\projects; export PATH=$ADD_PATH:$PATH; ./coinbrew/coinbrew build %APPVEYOR_PROJECT_NAME% --no-prompt --no-third-party --build=x86_64-w64-mingw32 $HOST_ARCH_ARG --verbosity 4 --tests $TESTS --enable-relocatable"
+  - C:\msys64\usr\bin\bash -lc "cd C:\projects; export PATH=$ADD_PATH:$PATH; ./coinbrew/coinbrew build %APPVEYOR_PROJECT_NAME% --no-prompt --no-third-party --build=x86_64-w64-mingw32 $HOST_ARCH_ARG --verbosity 4 --tests $TESTS --enable-relocatable --disable-shared --enable-static"
 
 #on_finish:
 #  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
